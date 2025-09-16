@@ -8,7 +8,7 @@ export default function Dashboard() {
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await api.get("/emails"); // ✅ matches backend
+        const res = await api.get("/emails"); 
         setEmails(res.data);
       } catch (err) {
         console.error("❌ Failed to fetch emails:", err);
