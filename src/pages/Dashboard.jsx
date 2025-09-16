@@ -1,0 +1,51 @@
+import { useEffect, useState } from "react";
+import api from "../api";
+
+export default function Dashboard() {
+  const [emails, setEmails] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const res = await api.get("/signups"); // GET all signups
+        setEmails(res.data);
+      } catch (err) {
+        console.error(err);
+        alert("❌ Failed to fetch emails");
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+
+  return (
+    <div style={{ padding: "20px" }}>
+      <h1>Collected Emails</h1>
+      <table border="1" cellPadding="10" style={{ width: "100%" }}>
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Submitted At</th>
+          </tr>
+        </thead>
+        <tbody>
+          {emails.map((e) => (
+            <tr key={e._id}>
+              <td>{e.email}</td>
+              <td>{new Date(e.createdAt).toLocaleString()}</td>
+            </tr>
+          ))}
+          {emails.length === 0 && (
+            <tr>
+              <td colSpan="2">No signups yet</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+}
