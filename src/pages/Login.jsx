@@ -6,8 +6,8 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const nav = useNavigate();
-``
-  const submit = async (e) => {
+
+    const submit = async (e) => {
     e.preventDefault();
     try {
       const res = await api.post("/auth/login", { username, password });
@@ -16,9 +16,16 @@ export default function Login() {
       setAuthToken(token);
       nav("/dashboard");
     } catch (err) {
-      alert("❌ Invalid login");
+      // 🔍 Debugging: show full error details
+      if (err.response) {
+        alert(`❌ ${err.response.data.error || "Login failed"} (status ${err.response.status})`);
+      } else {
+        alert(`❌ Network error: ${err.message}`);
+      }
+      console.error("Login error:", err);
     }
   };
+  
 
   return (
     <form
