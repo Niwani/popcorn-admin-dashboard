@@ -8,10 +8,10 @@ export default function Dashboard() {
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await api.get("/signups"); // GET all signups
+        const res = await api.get("/emails"); // ✅ matches backend
         setEmails(res.data);
       } catch (err) {
-        console.error(err);
+        console.error("❌ Failed to fetch emails:", err);
         alert("❌ Failed to fetch emails");
       } finally {
         setLoading(false);
@@ -35,8 +35,8 @@ export default function Dashboard() {
         <tbody>
           {emails.map((e) => (
             <tr key={e._id}>
-              <td>{e.email}</td>
-              <td>{new Date(e.createdAt).toLocaleString()}</td>
+              <td>{e.address}</td> {/* ✅ use 'address' */}
+              <td>{new Date(e.date).toLocaleString()}</td> {/* ✅ use 'date' */}
             </tr>
           ))}
           {emails.length === 0 && (
