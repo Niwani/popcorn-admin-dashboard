@@ -8,7 +8,7 @@ const token = localStorage.getItem("token");
 if (token) setAuthToken(token);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <HashRouter basename="/popcorn-admin-dashboard">
+  <HashRouter>
     <App />
   </HashRouter>
 );
