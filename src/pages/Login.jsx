@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState("")
   const nav = useNavigate();
 
     const submit = async (e) => {
@@ -16,7 +17,6 @@ export default function Login() {
       setAuthToken(token);
       nav("/dashboard");
     } catch (err) {
-      // 🔍 Debugging: show full error details
       if (err.response) {
         alert(`❌ ${err.response.data.error || "Login failed"} (status ${err.response.status})`);
       } else {
@@ -38,12 +38,23 @@ export default function Login() {
         onChange={(e) => setUsername(e.target.value)}
         placeholder="username"
       />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="password"
-      />
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <input
+            type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="password"
+            style={{ flex: 1}}
+        />
+        <button 
+            type="button" 
+            onClick={setShowPassword(!showPassword)}
+            style={{ marginLeft: "5px" }}
+        >{
+            showPassword ? "Hide" : "Show"}
+        </button>
+      </div>
+      
       <button type="submit">Login</button>
     </form>
   );
