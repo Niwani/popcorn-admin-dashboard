@@ -32,7 +32,19 @@ export default function Dashboard() {
   return (
     <div style={{ padding: "20px" }}>
       <h1>Collected Emails</h1>
-      <button onClick={handleLogout}>Logout</button>
+      <button 
+        onClick={handleLogout}
+        style={{
+          padding: "8px 16px",
+          backgroundColor: "crimson",
+          color: "white",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+        }}
+      >
+        Logout
+      </button>
       <table border="1" cellPadding="10" style={{ width: "100%" }}>
         <thead>
           <tr>
