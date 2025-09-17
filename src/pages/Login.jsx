@@ -40,29 +40,31 @@ export default function Login() {
       />
 
     <div style={{ display: "flex", alignItems: "center", position: "relative" }}>
-    <input
-        type={showPassword ? "text" : "password"}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="password"
-        style={{ flex: 1, paddingRight: "2rem" }}
-        onKeyDown={(e) => {
-            if (e.key === "Enter") {
-                submit(e)
-            }
-        }}
-    />
-    <span
-        onClick={() => setShowPassword(!showPassword)}  
-        style={{
-        position: "absolute",
-        right: "10px",
-        cursor: "pointer",
-        color: "#555",
-        }}
-    >
-        {showPassword ? <FaEyeSlash /> : <FaEye />}
-    </span>
+        <input
+            type={showPassword ? "text" : "password"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="password"
+            style={{ flex: 1, paddingRight: "2rem" }}
+            onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                e.preventDefault();   // stop default submit
+                document.querySelector("form").requestSubmit(); // ✅ manually submit the form
+                }
+            }}
+        />
+
+        <span
+            onClick={() => setShowPassword(!showPassword)}  
+            style={{
+            position: "absolute",
+            right: "10px",
+            cursor: "pointer",
+            color: "#555",
+            }}
+        >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </span>
     </div>
       <button type="submit">Login</button>
     </form>
