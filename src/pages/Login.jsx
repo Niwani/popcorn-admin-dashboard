@@ -39,27 +39,31 @@ export default function Login() {
         placeholder="username"
       />
 
-      <div style={{ display: "flex", alignItems: "center", position: "relative" }}>
-        <input
-          type={showPassword ? "text" : "password"}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="password"
-          style={{ flex: 1, paddingRight: "2rem" }}
-        />
-        <span
-          onClick={() => setShowPassword(!showPassword)}
-          style={{
-            position: "absolute",
-            right: "10px",
-            cursor: "pointer",
-            color: "#555",
-          }}
-        >
-          {showPassword ? <FaEyeSlash /> : <FaEye />}
-        </span>
-      </div>
-
+    <div style={{ display: "flex", alignItems: "center", position: "relative" }}>
+    <input
+        type={showPassword ? "text" : "password"}
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="password"
+        style={{ flex: 1, paddingRight: "2rem" }}
+        onKeyDown={(e) => {
+            if (e.key === "Enter") {
+                submit(e)
+            }
+        }}
+    />
+    <span
+        onClick={() => setShowPassword(!showPassword)}  
+        style={{
+        position: "absolute",
+        right: "10px",
+        cursor: "pointer",
+        color: "#555",
+        }}
+    >
+        {showPassword ? <FaEyeSlash /> : <FaEye />}
+    </span>
+    </div>
       <button type="submit">Login</button>
     </form>
   );
