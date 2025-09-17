@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../api";
 
 export default function Dashboard() {
   const [emails, setEmails] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const load = async () => {
@@ -20,11 +22,17 @@ export default function Dashboard() {
     load();
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate("/login")
+  }
+
   if (loading) return <div>Loading...</div>;
 
   return (
     <div style={{ padding: "20px" }}>
       <h1>Collected Emails</h1>
+      <button onClick={handleLogout}>Logout</button>
       <table border="1" cellPadding="10" style={{ width: "100%" }}>
         <thead>
           <tr>
