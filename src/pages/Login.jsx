@@ -1,14 +1,15 @@
 import { useState } from "react";
 import api, { setAuthToken } from "../api";
 import { useNavigate } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // 👁️ icons
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState("")
+  const [showPassword, setShowPassword] = useState(false);
   const nav = useNavigate();
 
-    const submit = async (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     try {
       const res = await api.post("/auth/login", { username, password });
@@ -25,7 +26,6 @@ export default function Login() {
       console.error("Login error:", err);
     }
   };
-  
 
   return (
     <form
@@ -38,23 +38,28 @@ export default function Login() {
         onChange={(e) => setUsername(e.target.value)}
         placeholder="username"
       />
-      <div style={{ display: "flex", alignItems: "center" }}>
+
+      <div style={{ display: "flex", alignItems: "center", position: "relative" }}>
         <input
-            type={showPassword ? 'text' : 'password'}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="password"
-            style={{ flex: 1}}
+          type={showPassword ? "text" : "password"}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="password"
+          style={{ flex: 1, paddingRight: "2rem" }}
         />
-        <button 
-            type="button" 
-            onClick={setShowPassword(!showPassword)}
-            style={{ marginLeft: "5px" }}
-        >{
-            showPassword ? "Hide" : "Show"}
-        </button>
+        <span
+          onClick={() => setShowPassword(!showPassword)}
+          style={{
+            position: "absolute",
+            right: "10px",
+            cursor: "pointer",
+            color: "#555",
+          }}
+        >
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </span>
       </div>
-      
+
       <button type="submit">Login</button>
     </form>
   );
