@@ -1,0 +1,94 @@
+
+.admin-container {
+    padding: 20px;
+    background: #f9fafb;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+}
+  
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+  
+.admin-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2937; 
+}
+  
+.logout-button {
+    padding: 8px 16px;
+    background-color: crimson;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out, transform 0.1s;
+}
+  
+.logout-button:hover {
+    background-color: darkred;
+    transform: scale(1.05);
+}
+  
+.email-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+  
+.email-table th,
+.email-table td {
+    padding: 12px 16px;
+    text-align: left;
+}
+  
+.email-table th {
+    background-color: #2563eb; /* blue-600 */
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+  
+.email-table tr:nth-child(even) {
+    background-color: #f9fafb; 
+}
+  
+.email-table tr:hover {
+    background-color: #eef2ff; 
+}
+  
+.email-table td {
+    color: #374151; 
+    font-size: 0.95rem;
+}
+
+.search-bar {
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .search-input {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db; 
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    margin-bottom: 2rem;
+  }
+  
+  .search-input:focus {
+    border-color: #2563eb; 
+    box-shadow: 0 0 0 2px #93c5fd; 
+  }
+  

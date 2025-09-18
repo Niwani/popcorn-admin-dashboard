@@ -1,7 +1,9 @@
 import { useState } from "react";
 import api, { setAuthToken } from "../api";
 import { useNavigate } from "react-router-dom";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // 👁️ icons
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+import "./Login.css"
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -28,45 +30,45 @@ export default function Login() {
   };
 
   return (
-    <form
-      onSubmit={submit}
-      style={{ maxWidth: 400, margin: "3rem auto", display: "flex", flexDirection: "column", gap: "10px" }}
-    >
-      <h2>Admin Login</h2>
+    <form onSubmit={submit} className="login-form">
+      <h2 className="login-title">Admin Login</h2>
+
+      {/* Username */}
       <input
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-        placeholder="username"
+        placeholder="Username"
+        className="login-input"
       />
 
-    <div style={{ display: "flex", alignItems: "center", position: "relative" }}>
+      {/* Password */}
+      <div className="password-wrapper">
         <input
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="password"
-            style={{ flex: 1, paddingRight: "2rem" }}
-            onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                e.preventDefault();   // stop default submit
-                document.querySelector("form").requestSubmit(); // ✅ manually submit the form
-                }
-            }}
+          type={showPassword ? "text" : "password"}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          className="password-input"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              document.querySelector("form").requestSubmit();
+            }
+          }}
         />
 
         <span
-            onClick={() => setShowPassword(!showPassword)}  
-            style={{
-            position: "absolute",
-            right: "10px",
-            cursor: "pointer",
-            color: "#555",
-            }}
+          onClick={() => setShowPassword(!showPassword)}
+          className="toggle-password"
         >
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
         </span>
-    </div>
-      <button type="submit">Login</button>
+      </div>
+
+      {/* Submit */}
+      <button type="submit" className="login-button">
+        Login
+      </button>
     </form>
   );
 }

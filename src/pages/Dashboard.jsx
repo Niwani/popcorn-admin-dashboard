@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
+import "./Dashboard.css"
 
 export default function Dashboard() {
   const [emails, setEmails] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("")
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,23 +31,27 @@ export default function Dashboard() {
 
   if (loading) return <div>Loading...</div>;
 
+  const filteredEmails = emails.filter((e) => e.address.toLowerCase().includes(search.toLowerCase()))
+
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Collected Emails</h1>
-      <button 
-        onClick={handleLogout}
-        style={{
-          padding: "8px 16px",
-          backgroundColor: "crimson",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-      >
-        Logout
-      </button>
-      <table border="1" cellPadding="10" style={{ width: "100%" }}>
+    <div className="admin-container">
+      <div className="admin-header">
+        <h1 className="admin-title">Collected Emails</h1>
+        <button onClick={handleLogout} className="logout-button">
+          Logout
+        </button>
+      </div>
+
+      <div>
+        <input 
+          type="text" 
+          placeholder="Search emails..." 
+          value={search} onChange={(e) => setSearch(e.target.value)} 
+          className="search-input" 
+        />
+      </div>
+
+      <table className="email-table">
         <thead>
           <tr>
             <th>Email</th>
@@ -53,15 +59,15 @@ export default function Dashboard() {
           </tr>
         </thead>
         <tbody>
-          {emails.map((e) => (
+          {filteredEmails.map((e) => (
             <tr key={e._id}>
-              <td>{e.address}</td> {/* ✅ use 'address' */}
-              <td>{new Date(e.date).toLocaleString()}</td> {/* ✅ use 'date' */}
+              <td>{e.address}</td>
+              <td>{new Date(e.date).toLocaleString()}</td>
             </tr>
           ))}
-          {emails.length === 0 && (
+          {filteredEmails.length === 0 && (
             <tr>
-              <td colSpan="2">No signups yet</td>
+              <td colSpan="2">No matching results</td>
             </tr>
           )}
         </tbody>
